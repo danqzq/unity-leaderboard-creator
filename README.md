@@ -2,6 +2,36 @@
 
 Current latest version of **Leaderboard Creator** is v2.8
 
+## Table of Contents
+
+- [Integration Video Tutorial](#integration-video-tutorial)
+- [Importing Leaderboard Creator into your project](#importing-leaderboard-creator-into-your-project)
+- [Include this "using" statement in your script where you want to handle leaderboards](#include-this-using-statement-in-your-script-where-you-want-to-handle-leaderboards)
+- [Adding your leaderboard to your project](#adding-your-leaderboard-to-your-project)
+- [Getting your leaderboard](#getting-your-leaderboard)
+- [Uploading and modifying leaderboard entries](#uploading-and-modifying-leaderboard-entries)
+- [Display entries](#display-entries)
+  - [Displaying entries in a list](#displaying-entries-in-a-list)
+  - [Identifying the player's entry](#identifying-the-players-entry)
+  - [Rank suffixes](#rank-suffixes)
+- [More functions](#more-functions)
+  - [Get the player's personal entry](#get-the-players-personal-entry)
+  - [Get the total count of entries in the leaderboard](#get-the-total-count-of-entries-in-the-leaderboard)
+  - [Reset the player's entry](#reset-the-players-entry)
+  - [Toggle Logging](#toggle-logging)
+- [Understanding the behaviour of the leaderboard entries](#understanding-the-behaviour-of-the-leaderboard-entries)
+  - [Authorization](#authorization)
+  - [The Purpose of Unique Identifiers](#the-purpose-of-unique-identifiers)
+- [FAQ](#faq)
+  - [Where is the data of the leaderboards stored?](#where-is-the-data-of-the-leaderboards-stored)
+  - [What if I lost my leaderboard or its secret key?](#what-if-i-lost-my-leaderboard-or-its-secret-key)
+  - [My leaderboard entry keeps getting overridden / I can only upload one entry. Why is that?](#my-leaderboard-entry-keeps-getting-overridden--i-can-only-upload-one-entry-why-is-that)
+  - [Does the score field in the entry store integers only?](#does-the-score-field-in-the-entry-store-integers-only)
+  - [Why is my leaderboard "frozen"?](#why-is-my-leaderboard-frozen)
+
+
+  ---
+
 ## Integration Video Tutorial
 
 If you prefer to watch a video tutorial on how to integrate your leaderboard into your project, click the image below to watch it on YouTube:
