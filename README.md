@@ -134,6 +134,7 @@ public struct LeaderboardSearchQuery
 > 
 > LeaderboardSearchQuery.ByUsernameAndTime(string username, TimePeriodType timePeriod)
 > ```
+
 > [!NOTE]
 > **TimePeriodType** is an enum that consists of the following values:
 > - **AllTime** - All entries
