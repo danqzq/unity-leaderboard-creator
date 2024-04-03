@@ -6,7 +6,7 @@ Current latest version of **Leaderboard Creator** is v2.8
 
 - [Integration Video Tutorial](#integration-video-tutorial)
 - [Importing Leaderboard Creator into your project](#importing-leaderboard-creator-into-your-project)
-- [Include this "using" statement in your script where you want to handle leaderboards](#include-this-using-statement-in-your-script-where-you-want-to-handle-leaderboards)
+- [Include this `using` statement in your script where you want to handle leaderboards](#include-this-using-statement-in-your-script-where-you-want-to-handle-leaderboards)
 - [Adding your leaderboard to your project](#adding-your-leaderboard-to-your-project)
 - [Getting your leaderboard](#getting-your-leaderboard)
 - [Uploading and modifying leaderboard entries](#uploading-and-modifying-leaderboard-entries)
@@ -46,7 +46,7 @@ Visit the [itch.io page](https://danqzq.itch.io/leaderboard-creator) to download
 
   ---
 
-## Include this "using" statement in your script where you want to handle leaderboards
+## Include this `using` statement in your script where you want to handle leaderboards
 ```c#
 using Dan.Main;
 ```
