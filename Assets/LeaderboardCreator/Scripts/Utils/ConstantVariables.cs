@@ -1,4 +1,4 @@
-﻿using Dan.Enums;
+using Dan.Enums;
 
 namespace Dan
 {
@@ -8,17 +8,13 @@ namespace Dan
         
         internal static string GetServerURL(Routes route = Routes.None, string extra = "")
         {
-            return SERVER_URL + route switch
-            {
-                Routes.Authorize => "/authorize",
-                Routes.Get => "/get",
-                Routes.Upload => "/entry/upload",
-                Routes.UpdateUsername => "/entry/update-username",
-                Routes.DeleteEntry => "/entry/delete",
-                Routes.GetPersonalEntry => "/entry/get",
-                Routes.GetEntryCount => "/entry/count",
-                _ => "/"
-            } + extra;
+            return SERVER_URL + (route == Routes.Authorize ? "/authorize" :
+                route == Routes.Get ? "/get" :
+                route == Routes.Upload ? "/entry/upload" :
+                route == Routes.UpdateUsername ? "/entry/update-username" :
+                route == Routes.DeleteEntry ? "/entry/delete" :
+                route == Routes.GetPersonalEntry ? "/entry/get" :
+                route == Routes.GetEntryCount ? "/entry/count" : "/") + extra;
         }
 
         private const string SERVER_URL = "https://lcv2-server.danqzq.games";

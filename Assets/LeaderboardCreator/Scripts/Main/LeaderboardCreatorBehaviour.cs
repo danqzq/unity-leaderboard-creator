@@ -191,6 +191,7 @@ namespace Dan.Main
                     System.IO.File.WriteAllText(path, guid);
                     break;
             }
+            LeaderboardCreator.UserGuid = guid;
         }
         
         private static string LoadGuid()
@@ -222,6 +223,7 @@ namespace Dan.Main
                     System.IO.File.Delete(path);
                     break;
             }
+            LeaderboardCreator.UserGuid = "";
         }
     }
 }

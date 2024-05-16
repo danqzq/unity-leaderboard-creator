@@ -180,6 +180,12 @@ namespace Dan.Main
                 LogError("Username cannot be longer than 127 characters!");
                 return;
             }
+            
+            if (string.IsNullOrEmpty(UserGuid))
+            {
+                LogError("User GUID is null or empty! Please authorize the user before uploading an entry.");
+                return;
+            }
 
             callback += isSuccessful =>
             {
