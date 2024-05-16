@@ -1,6 +1,6 @@
 # Official Documentation for Leaderboard Creator
 
-Current latest version of **Leaderboard Creator** is v2.8
+Current latest version of **Leaderboard Creator** is v2.81
 
 ## Table of Contents
 
