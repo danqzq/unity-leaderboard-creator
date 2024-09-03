@@ -1,6 +1,6 @@
 # Official Documentation for Leaderboard Creator
 
-Current latest version of **Leaderboard Creator** is v2.81
+Current latest version of **Leaderboard Creator** is v3 (Early Access)
 
 ## Table of Contents
 
@@ -42,7 +42,7 @@ If you prefer to watch a video tutorial on how to integrate your leaderboard int
 
 ## Importing Leaderboard Creator into your project
 
-Visit the [itch.io page](https://danqzq.itch.io/leaderboard-creator) to download the Unity package containing Leaderboard Creator.
+Visit the [itch.io page](https://danqzq.itch.io/leaderboard-creator-v3) to download the Unity package containing Leaderboard Creator.
 
   ---
 
@@ -69,7 +69,7 @@ To add your leaderboard to your project, follow these steps:
 ## Getting your leaderboard
 • To **get** the entries in your leaderboard, call this function:
 ```c#
-Leaderboards.YourLeaderboard.GetEntries(string publicKey, Action<Entry[]> callback, Action<string> errorCallback[optional])
+Leaderboards.YourLeaderboard.GetEntries(string key, Action<Entry[]> callback, Action<string> errorCallback[optional])
 ```
 
 • If the function is called and the request is successful, the callback is called, an array of `Entry` objects is returned.
@@ -95,9 +95,9 @@ public struct Entry
 
 • This function also has other overloads that can give you more control over the querying of your leaderboard's entries:
 ```c#
-Leaderboards.YourLeaderboard.GetEntries(string publicKey, bool isInAscendingOrder, Action<Entry[]> callback, Action<string> errorCallback[optional])
-Leaderboards.YourLeaderboard.GetEntries(string publicKey, LeaderboardSearchQuery searchQuery, Action<Entry[]> callback, Action<string> errorCallback[optional])
-Leaderboards.YourLeaderboard.GetEntries(string publicKey, bool isInAscendingOrder, LeaderboardSearchQuery searchQuery, Action<Entry[]> callback, Action<string> errorCallback[optional])
+Leaderboards.YourLeaderboard.GetEntries(string key, bool isInAscendingOrder, Action<Entry[]> callback, Action<string> errorCallback[optional])
+Leaderboards.YourLeaderboard.GetEntries(string key, LeaderboardSearchQuery searchQuery, Action<Entry[]> callback, Action<string> errorCallback[optional])
+Leaderboards.YourLeaderboard.GetEntries(string key, bool isInAscendingOrder, LeaderboardSearchQuery searchQuery, Action<Entry[]> callback, Action<string> errorCallback[optional])
 ```
 
 > [!NOTE]
@@ -346,9 +346,9 @@ LeaderboardCreator.GetLeaderboard(string publicKey, Action<Entry[]> callback)
 
 • This function also has other overloads that can give you more control over the querying of your leaderboard's entries:
 ```c#
-LeaderboardCreator.GetLeaderboard(string publicKey, bool isInAscendingOrder, Action<Entry[]> callback, Action<string> errorCallback[optional])
-LeaderboardCreator.GetLeaderboard(string publicKey, LeaderboardSearchQuery searchQuery, Action<Entry[]> callback, Action<string> errorCallback[optional])
-LeaderboardCreator.GetLeaderboard(string publicKey, bool isInAscendingOrder, LeaderboardSearchQuery searchQuery, Action<Entry[]> callback, Action<string> errorCallback[optional])
+LeaderboardCreator.GetLeaderboard(string key, bool isInAscendingOrder, Action<Entry[]> callback, Action<string> errorCallback[optional])
+LeaderboardCreator.GetLeaderboard(string key, LeaderboardSearchQuery searchQuery, Action<Entry[]> callback, Action<string> errorCallback[optional])
+LeaderboardCreator.GetLeaderboard(string key, bool isInAscendingOrder, LeaderboardSearchQuery searchQuery, Action<Entry[]> callback, Action<string> errorCallback[optional])
 ```
 
   ---
@@ -356,15 +356,15 @@ LeaderboardCreator.GetLeaderboard(string publicKey, bool isInAscendingOrder, Lea
 ## Uploading and modifying leaderboard entries
 • To **upload** a new entry into your leaderboard, call this function:
 ```c#
-LeaderboardCreator.UploadNewEntry(string publicKey, string username, int score, Action<bool> callback, Action<string> errorCallback[optional])
+LeaderboardCreator.UploadNewEntry(string key, string username, int score, Action<bool> callback, Action<string> errorCallback[optional])
 ```
 • To **upload** a new entry, with an extra field, into your leaderboard, call this function:
 ```c#
-LeaderboardCreator.UploadNewEntry(string publicKey, string username, int score, string extra, Action<bool> callback, Action<string> errorCallback[optional])
+LeaderboardCreator.UploadNewEntry(string key, string username, int score, string extra, Action<bool> callback, Action<string> errorCallback[optional])
 ```
 • To **delete** the player's entry, call this function:
 ```c#
-LeaderboardCreator.DeleteEntry(string publicKey, Action<bool> optionalCallback)
+LeaderboardCreator.DeleteEntry(string key, Action<bool> optionalCallback)
 ```
 
 ## More functions
@@ -372,19 +372,19 @@ LeaderboardCreator.DeleteEntry(string publicKey, Action<bool> optionalCallback)
 ### Get the player's personal entry
 
 ```c#
-LeaderboardCreator.GetPersonalEntry(string publicKey, Action<Entry> callback, Action<string> errorCallback[optional])
+LeaderboardCreator.GetPersonalEntry(string key, Action<Entry> callback, Action<string> errorCallback[optional])
 ```
 
 ### Get the total count of entries in the leaderboard
 
 ```c#
-LeaderboardCreator.GetEntryCount(string publicKey, Action<int> callback, Action<string> errorCallback[optional])
+LeaderboardCreator.GetEntryCount(string key, Action<int> callback, Action<string> errorCallback[optional])
 ```
 
 ### Reset the player's entry
 
 ```c#
-LeaderboardCreator.ResetPlayer(string publicKey, Action<bool> callback, Action<string> errorCallback[optional])
+LeaderboardCreator.ResetPlayer(string key, Action<bool> callback, Action<string> errorCallback[optional])
 ```
 
   ---
