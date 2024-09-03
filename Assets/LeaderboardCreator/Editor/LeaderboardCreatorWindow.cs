@@ -12,13 +12,12 @@ namespace LeaderboardCreatorEditor
         [System.Serializable]
         private class SavedLeaderboard
         {
-            public string name, publicKey, secretKey;
+            public string name, key;
             
-            public SavedLeaderboard(string name, string publicKey, string secretKey)
+            public SavedLeaderboard(string name, string key)
             {
                 this.name = name;
-                this.publicKey = publicKey;
-                this.secretKey = secretKey;
+                this.key = key;
             }
         }
         
@@ -30,10 +29,10 @@ namespace LeaderboardCreatorEditor
 
         private const string ITCH_PAGE_URL = "https://danqzq.itch.io/leaderboard-creator";
         private const string AUTHOR_URL = "https://www.danqzq.games";
-        private const string VERSION = "2.8";
+        private const string VERSION = "3.0b";
 
         private static bool _isAddLeaderboardMenuOpen;
-        private static string _name, _publicKey, _secretKey;
+        private static string _name, _key;
         private static Vector2 _scrollPos;
 
         private static SavedLeaderboardList _savedLeaderboardList;
@@ -57,7 +56,7 @@ namespace LeaderboardCreatorEditor
 
         private static void CheckVersion()
         {
-            var request = UnityEngine.Networking.UnityWebRequest.Get("https://lcv2-server.danqzq.games/version");
+            var request = UnityEngine.Networking.UnityWebRequest.Get("https://lcv3-server.danqzq.games/version");
             var operation = request.SendWebRequest();
             Log("Checking for updates...");
             operation.completed += _ =>
@@ -217,10 +216,8 @@ namespace LeaderboardCreatorEditor
                 savedLeaderboard.name = EditorGUILayout.TextField("Name", savedLeaderboard.name);
 
                 GUILayout.BeginHorizontal();
-                if (GUILayout.Button("Copy Public Key"))
-                    EditorGUIUtility.systemCopyBuffer = savedLeaderboard.publicKey;
-                if (GUILayout.Button("Copy Secret Key"))
-                    EditorGUIUtility.systemCopyBuffer = savedLeaderboard.secretKey;
+                if (GUILayout.Button("Copy Key"))
+                    EditorGUIUtility.systemCopyBuffer = savedLeaderboard.key;
                 GUILayout.EndHorizontal();
 
                 if (!GUILayout.Button("Forget Leaderboard"))
@@ -239,9 +236,8 @@ namespace LeaderboardCreatorEditor
             DrawSeparator();
             GUILayout.Label("Enter New Leaderboard", _titleStyle);
 
-            _name      = EditorGUILayout.TextField("Name", _name);
-            _publicKey = EditorGUILayout.TextField("Public Key", _publicKey);
-            _secretKey = EditorGUILayout.TextField("Secret Key", _secretKey);
+            _name = EditorGUILayout.TextField("Name", _name);
+            _key  = EditorGUILayout.TextField("Key", _key);
 
             if (GUILayout.Button("Add Leaderboard"))
                 EnterNewLeaderboard();
@@ -254,7 +250,7 @@ namespace LeaderboardCreatorEditor
 
         private static void EnterNewLeaderboard()
         {
-            if (string.IsNullOrEmpty(_publicKey) || string.IsNullOrEmpty(_secretKey))
+            if (string.IsNullOrEmpty(_key))
             {
                 EditorUtility.DisplayDialog("Leaderboard Creator Error", "Please fill all the fields.", "OK");
                 return;
@@ -269,10 +265,10 @@ namespace LeaderboardCreatorEditor
                 return;
             }
                 
-            _savedLeaderboardList.leaderboards.Add(new SavedLeaderboard(_name, _publicKey, _secretKey));
+            _savedLeaderboardList.leaderboards.Add(new SavedLeaderboard(_name, _key));
             SaveLeaderboardList();
                 
-            _name = _publicKey = _secretKey = "";
+            _name = _key = "";
         }
 
         private static bool ValidateLeaderboardName(string leaderboardName)
@@ -314,7 +310,7 @@ namespace LeaderboardCreatorEditor
             foreach (var savedLeaderboard in _savedLeaderboardList.leaderboards)
             {
                 file.WriteLine($"        public static LeaderboardReference {savedLeaderboard.name} = " +
-                               $"new LeaderboardReference(\"{savedLeaderboard.publicKey}\");");
+                               $"new LeaderboardReference(\"{savedLeaderboard.key}\");");
             }
                 
             file.WriteLine("    }");

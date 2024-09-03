@@ -16,7 +16,7 @@ namespace Dan.Main
 
         internal static string UserGuid;
         
-        private const string FORM_PUBLIC_KEY = "publicKey", FORM_USERNAME = "username", FORM_SCORE = "score",
+        private const string FORM_KEY = "key", FORM_USERNAME = "username", FORM_SCORE = "score",
             FORM_EXTRA = "extra", FORM_USER_GUID = "userGuid";
 
         [RuntimeInitializeOnLoadMethod]
@@ -76,96 +76,96 @@ namespace Dan.Main
         public static void Ping(Action<bool> isOnline) => _behaviour.SendGetRequest(GetServerURL(), isOnline, null);
 
         /// <summary>
-        /// Fetches a leaderboard with the given public key.
+        /// Fetches a leaderboard with the given key.
         /// </summary>
-        /// <param name="publicKey">The public key of the leaderboard
+        /// <param name="key">The key of the leaderboard
         /// (retrieve from https://danqzq.itch.io/leaderboard-creator).</param>
         /// <param name="callback">Returns entries of the leaderboard if the request was successful.</param>
         /// <param name="errorCallback">Returns an error message if the request failed.</param>
-        public static void GetLeaderboard(string publicKey, Action<Entry[]> callback, Action<string> errorCallback = null) => 
-            GetLeaderboard(publicKey, LeaderboardSearchQuery.Default, callback, errorCallback);
+        public static void GetLeaderboard(string key, Action<Entry[]> callback, Action<string> errorCallback = null) => 
+            GetLeaderboard(key, LeaderboardSearchQuery.Default, callback, errorCallback);
 
         /// <summary>
-        /// Fetches a leaderboard with the given public key.
+        /// Fetches a leaderboard with the given key.
         /// </summary>
-        /// <param name="publicKey">The public key of the leaderboard
+        /// <param name="key">The key of the leaderboard
         /// (retrieve from https://danqzq.itch.io/leaderboard-creator).</param>
         /// <param name="isInAscendingOrder">If true, the leaderboard will be sorted in ascending order.</param>
         /// <param name="callback">Returns entries of the leaderboard if the request was successful.</param>
         /// <param name="errorCallback">Returns an error message if the request failed.</param>
-        public static void GetLeaderboard(string publicKey, bool isInAscendingOrder, Action<Entry[]> callback, Action<string> errorCallback = null) => 
-            GetLeaderboard(publicKey, isInAscendingOrder, LeaderboardSearchQuery.Default, callback, errorCallback);
+        public static void GetLeaderboard(string key, bool isInAscendingOrder, Action<Entry[]> callback, Action<string> errorCallback = null) => 
+            GetLeaderboard(key, isInAscendingOrder, LeaderboardSearchQuery.Default, callback, errorCallback);
         
         /// <summary>
-        /// Fetches a leaderboard with the given public key.
+        /// Fetches a leaderboard with the given key.
         /// </summary>
-        /// <param name="publicKey">The public key of the leaderboard
+        /// <param name="key">The key of the leaderboard
         /// (retrieve from https://danqzq.itch.io/leaderboard-creator).</param>
         /// <param name="searchQuery">A struct with additional search parameters for filtering entries.</param>
         /// <param name="callback">Returns entries of the leaderboard if the request was successful.</param>
         /// <param name="errorCallback">Returns an error message if the request failed.</param>
-        public static void GetLeaderboard(string publicKey, LeaderboardSearchQuery searchQuery, Action<Entry[]> callback, Action<string> errorCallback = null)
+        public static void GetLeaderboard(string key, LeaderboardSearchQuery searchQuery, Action<Entry[]> callback, Action<string> errorCallback = null)
         {
-            if (string.IsNullOrEmpty(publicKey))
+            if (string.IsNullOrEmpty(key))
             {
-                LogError("Public key cannot be null or empty!");
+                LogError("Key cannot be null or empty!");
                 return;
             }
 
-            var query = $"?publicKey={publicKey}&userGuid={UserGuid}";
+            var query = $"?key={key}&userGuid={UserGuid}";
             query += searchQuery.ChainQuery();
             
             _behaviour.SendGetRequest(GetServerURL(Routes.Get, query), callback, errorCallback);
         }
 
         /// <summary>
-        /// Fetches a leaderboard with the given public key.
+        /// Fetches a leaderboard with the given key.
         /// </summary>
-        /// <param name="publicKey">The public key of the leaderboard
+        /// <param name="key">The key of the leaderboard
         /// (retrieve from https://danqzq.itch.io/leaderboard-creator).</param>
         /// <param name="isInAscendingOrder">If true, the leaderboard will be sorted in ascending order.</param>
         /// <param name="searchQuery">A struct with additional search parameters for filtering entries.</param>
         /// <param name="callback">Returns entries of the leaderboard if the request was successful.</param>
         /// <param name="errorCallback">Returns an error message if the request failed.</param>
-        public static void GetLeaderboard(string publicKey, bool isInAscendingOrder, LeaderboardSearchQuery searchQuery, Action<Entry[]> callback, Action<string> errorCallback = null)
+        public static void GetLeaderboard(string key, bool isInAscendingOrder, LeaderboardSearchQuery searchQuery, Action<Entry[]> callback, Action<string> errorCallback = null)
         {
-            if (string.IsNullOrEmpty(publicKey))
+            if (string.IsNullOrEmpty(key))
             {
-                LogError("Public key cannot be null or empty!");
+                LogError("Key cannot be null or empty!");
                 return;
             }
 
-            var query = $"?publicKey={publicKey}&userGuid={UserGuid}&isInAscendingOrder={(isInAscendingOrder ? 1 : 0)}";
+            var query = $"?key={key}&userGuid={UserGuid}&isInAscendingOrder={(isInAscendingOrder ? 1 : 0)}";
             query += searchQuery.ChainQuery();
             
             _behaviour.SendGetRequest(GetServerURL(Routes.Get, query), callback, errorCallback);
         }
         
         /// <summary>
-        /// Uploads a new entry to the leaderboard with the given public key.
+        /// Uploads a new entry to the leaderboard with the given key.
         /// </summary>
-        /// <param name="publicKey">The public key of the leaderboard</param>
+        /// <param name="key">The key of the leaderboard</param>
         /// <param name="username">The username of the player</param>
         /// <param name="score">The highscore of the player</param>
         /// <param name="callback">Returns true if the request was successful.</param>
         /// <param name="errorCallback">Returns an error message if the request failed.</param>
-        public static void UploadNewEntry(string publicKey, string username, int score, Action<bool> callback = null, Action<string> errorCallback = null) => 
-            UploadNewEntry(publicKey, username, score, " ", callback, errorCallback);
+        public static void UploadNewEntry(string key, string username, int score, Action<bool> callback = null, Action<string> errorCallback = null) => 
+            UploadNewEntry(key, username, score, " ", callback, errorCallback);
 
         /// <summary>
-        /// Uploads a new entry to the leaderboard with the given public key.
+        /// Uploads a new entry to the leaderboard with the given key.
         /// </summary>
-        /// <param name="publicKey">The public key of the leaderboard</param>
+        /// <param name="key">The key of the leaderboard</param>
         /// <param name="username">The username of the player</param>
         /// <param name="score">The highscore of the player</param>
         /// <param name="extra">Extra data to be stored with the entry (max length of 100, unless using an advanced leaderboard)</param>
         /// <param name="callback">Returns true if the request was successful.</param>
         /// <param name="errorCallback">Returns an error message if the request failed.</param>
-        public static void UploadNewEntry(string publicKey, string username, int score, string extra, Action<bool> callback = null, Action<string> errorCallback = null)
+        public static void UploadNewEntry(string key, string username, int score, string extra, Action<bool> callback = null, Action<string> errorCallback = null)
         {
-            if (string.IsNullOrEmpty(publicKey))
+            if (string.IsNullOrEmpty(key))
             {
-                LogError("Public key cannot be null or empty!");
+                LogError("Key cannot be null or empty!");
                 return;
             }
 
@@ -196,59 +196,24 @@ namespace Dan.Main
             };
             
             _behaviour.SendPostRequest(GetServerURL(Routes.Upload), Requests.Form(
-                Requests.Field(FORM_PUBLIC_KEY, publicKey),
+                Requests.Field(FORM_KEY, key),
                 Requests.Field(FORM_USERNAME, username),
                 Requests.Field(FORM_SCORE, score.ToString()),
                 Requests.Field(FORM_EXTRA, extra),
                 Requests.Field(FORM_USER_GUID, UserGuid)), callback, errorCallback);
         }
-
-        [Obsolete("This function is deprecated and will be removed in the future.")]
-        public static void UpdateEntryUsername(string publicKey, string username, Action<bool> callback = null, Action<string> errorCallback = null)
-        {
-            if (string.IsNullOrEmpty(publicKey))
-            {
-                LogError("Public key cannot be null or empty!");
-                return;
-            }
-            
-            if (string.IsNullOrEmpty(username))
-            {
-                LogError("Username cannot be null or empty!");
-                return;
-            }
-            
-            if (username.Length > 127)
-            {
-                LogError("Username cannot be longer than 127 characters!");
-                return;
-            }
-            
-            callback += isSuccessful =>
-            {
-                if (!isSuccessful)
-                    LogError("Updating entry's username failed!");
-                else
-                    Log("Successfully updated player's username!");
-            };
-            
-            _behaviour.SendPostRequest(GetServerURL(Routes.UpdateUsername), Requests.Form(
-                Requests.Field(FORM_PUBLIC_KEY, publicKey),
-                Requests.Field(FORM_USERNAME, username),
-                Requests.Field(FORM_USER_GUID, UserGuid)), callback, errorCallback);
-        }
         
         /// <summary>
-        /// Deletes the entry in a leaderboard, with the given public key.
+        /// Deletes the entry in a leaderboard, with the given key.
         /// </summary>
-        /// <param name="publicKey">Public key of the leaderboard.</param>
+        /// <param name="key">Key of the leaderboard.</param>
         /// <param name="callback">Returns true if the request was successful.</param>
         /// <param name="errorCallback">Returns an error message if the request failed.</param>
-        public static void DeleteEntry(string publicKey, Action<bool> callback = null, Action<string> errorCallback = null)
+        public static void DeleteEntry(string key, Action<bool> callback = null, Action<string> errorCallback = null)
         {
-            if (string.IsNullOrEmpty(publicKey))
+            if (string.IsNullOrEmpty(key))
             {
-                LogError("Public key cannot be null or empty!");
+                LogError("Key cannot be null or empty!");
                 return;
             }
             
@@ -261,43 +226,43 @@ namespace Dan.Main
             };
             
             _behaviour.SendPostRequest(GetServerURL(Routes.DeleteEntry), Requests.Form(
-                Requests.Field(FORM_PUBLIC_KEY, publicKey),
+                Requests.Field(FORM_KEY, key),
                 Requests.Field(FORM_USER_GUID, UserGuid)), callback, errorCallback);
         }
         
         /// <summary>
-        /// Gets the entry data of the player in a leaderboard, with the given public key.
+        /// Gets the entry data of the player in a leaderboard, with the given key.
         /// </summary>
-        /// <param name="publicKey">Public key of the leaderboard.</param>
+        /// <param name="key">Key of the leaderboard.</param>
         /// <param name="callback">Returns the entry data if request is successful</param>
         /// <param name="errorCallback">Returns an error message if the request failed.</param>
-        public static void GetPersonalEntry(string publicKey, Action<Entry> callback, Action<string> errorCallback = null)
+        public static void GetPersonalEntry(string key, Action<Entry> callback, Action<string> errorCallback = null)
         {
-            if (string.IsNullOrEmpty(publicKey))
+            if (string.IsNullOrEmpty(key))
             {
-                LogError("Public key cannot be null or empty!");
+                LogError("Key cannot be null or empty!");
                 return;
             }
             
             _behaviour.SendGetRequest(GetServerURL(Routes.GetPersonalEntry, 
-                $"?publicKey={publicKey}&userGuid={UserGuid}"), callback, errorCallback);
+                $"?key={key}&userGuid={UserGuid}"), callback, errorCallback);
         }
         
         /// <summary>
-        /// Gets the total number of entries in a leaderboard, with the given public key.
+        /// Gets the total number of entries in a leaderboard, with the given key.
         /// </summary>
-        /// <param name="publicKey">Public key of the leaderboard.</param>
+        /// <param name="key">Key of the leaderboard.</param>
         /// <param name="callback">Returns the total number of entries in the leaderboard.</param>
         /// <param name="errorCallback">Returns an error message if the request failed.</param>
-        public static void GetEntryCount(string publicKey, Action<int> callback, Action<string> errorCallback = null)
+        public static void GetEntryCount(string key, Action<int> callback, Action<string> errorCallback = null)
         {
-            if (string.IsNullOrEmpty(publicKey))
+            if (string.IsNullOrEmpty(key))
             {
-                LogError("Public key cannot be null or empty!");
+                LogError("Key cannot be null or empty!");
                 return;
             }
             
-            _behaviour.SendGetRequest(GetServerURL(Routes.GetEntryCount) + $"?publicKey={publicKey}", callback, errorCallback);
+            _behaviour.SendGetRequest(GetServerURL(Routes.GetEntryCount) + $"?key={key}", callback, errorCallback);
         }
         
         /// <summary>

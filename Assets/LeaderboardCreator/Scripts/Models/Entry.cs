@@ -6,13 +6,19 @@ namespace Dan.Models
     [System.Serializable]
     public struct Entry
     {
-        public string Username;
-        public int Score;
-        public ulong Date;
-        public string Extra;
-        public int Rank;
-        [SerializeField] internal string UserGuid;
-        [field: System.NonSerialized] internal string NewUsername { get; set; }
+        public string Username => username;
+        public long Score => score;
+        public ulong Date => date;
+        public string Extra => extra;
+        public int Rank => rank;
+        public string UserGuid => userGuid;
+        
+        public string username;
+        public long score;
+        public ulong date;
+        public string extra;
+        public int rank;
+        public string userGuid;
         
         /// <summary>
         /// Returns whether the entry is the current user's entry.
@@ -25,7 +31,6 @@ namespace Dan.Models
         /// <returns>Rank + suffix (e.g. 1st, 2nd, 3rd, 4th, 5th, etc.).</returns>
         public string RankSuffix()
         {
-            var rank = Rank;
             var lastDigit = rank % 10;
             var lastTwoDigits = rank % 100;
 
@@ -35,5 +40,11 @@ namespace Dan.Models
 
             return $"{rank}{suffix}";
         }
+
+        public float GetScoreFloat(int decimals = 2) => score / Mathf.Pow(10, decimals);
+        
+        public double GetScoreDouble(int decimals = 2) => score / Mathf.Pow(10, decimals);
+        
+        public decimal GetScoreDecimal(int decimals = 2) => score / (decimal)Mathf.Pow(10, decimals);
     }
 }
